@@ -1,6 +1,6 @@
 # Crear CLI de Node
 
-- [] Inicializar proyecto + Instalar Linter
+- [X] Inicializar proyecto + Instalar Linter
 - [] Pedirle al usuario el nombre dewlñ commit
 - [] Mostrar una lista de posibles commits
 - [] Pedirle al usuario si es Breaking Change
