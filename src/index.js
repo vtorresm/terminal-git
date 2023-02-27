@@ -1,10 +1,29 @@
 import { intro, outro, text, select } from '@clack/prompts'
-import { COMMIT_TYPES } from './commit-types.js'
+import colors from 'picocolors'
+import { trytm } from '@bdsqqq/try'
 
-intro('Asistente para la creación de commits por Victor Torres')
+import { COMMIT_TYPES } from './commit-types.js'
+import { getChangedFiles } from './git.js'
+
+intro(
+  colors.inverse(
+    `Asistente para la creación de commits por ${colors.yellow(
+      'Victor Torres'
+    )}`
+  )
+)
+
+const [changedFiles, errorChangedFiles] = await trytm(getChangedFiles())
+
+if (errorChangedFiles) {
+  outro(colors.red('Error: Comprueba que estás en un repositorio de git'))
+  process.exit(1)
+}
+
+console.log(changedFiles)
 
 const commitTypes = await select({
-  message: 'Selecciona el tipo de commit',
+  message: colors.cyan('Selecciona el tipo de commit'),
   options: Object.entries(COMMIT_TYPES).map(([key, value]) => ({
     value: key,
     label: `${value.emoji} ${key} . ${value.description}`
