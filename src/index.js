@@ -10,6 +10,7 @@ import {
 import colors from 'picocolors'
 import { trytm } from '@bdsqqq/try'
 
+import { exitProgram } from './utils.js'
 import { COMMIT_TYPES } from './commit-types.js'
 import { getChangedFiles, getStagedFiles, gitAdd, gitCommit } from './git.js'
 
@@ -38,10 +39,7 @@ if (stagedFiles.length === 0 && changedFiles.length > 0) {
     }))
   })
 
-  if (isCancel(files)) {
-    outro(colors.yellow('No hay archivos para commitear'))
-    process.exit(0)
-  }
+  if (isCancel(files)) exitProgram()
 
   await gitAdd({ files })
 }
@@ -54,11 +52,13 @@ const commitType = await select({
   }))
 })
 
+if (isCancel(commitType)) exitProgram()
+
 const commitMessage = await text({
   message: colors.cyan('Introduce el mensaje del commit:'),
   validate: (value) => {
     if (value.length === 0) {
-      return colors.red('El mensaje noi puede estar vacío')
+      return colors.red('El mensaje no puede estar vacío')
     }
 
     if (value.length > 50) {
@@ -66,6 +66,8 @@ const commitMessage = await text({
     }
   }
 })
+
+if (isCancel(commitMessage)) exitProgram()
 
 const { emoji, release } = COMMIT_TYPES[commitType]
 
@@ -77,13 +79,14 @@ if (release) {
       '¿Tiene este commit cambios que rompen la compatibilidad anterior?'
     )}
     ${colors.yellow(
-      'Si la respuesta es si, deberias crear un commit con el tipo "BREAKING CHANGE" y al hacer release se publicará uan versión major'
+      'Si la respuesta es sí, deberías crear un commit con el tipo "BREAKING CHANGE" y al hacer release se publicará una versión major'
     )}
     `
   })
+  if (isCancel(breakingChange)) exitProgram()
 }
 
-let commit = `${emoji} ${commitType} ${commitMessage}`
+let commit = `${emoji} ${commitType}: ${commitMessage}`
 commit = breakingChange ? `${commit} [breaking change]` : commit
 
 const shouldContinue = await confirm({
@@ -93,6 +96,8 @@ const shouldContinue = await confirm({
   ${colors.cyan('¿Confirmas?')}
   `
 })
+
+if (isCancel(shouldContinue)) exitProgram()
 
 if (!shouldContinue) {
   outro(colors.yellow('No se ha creado el commit'))
