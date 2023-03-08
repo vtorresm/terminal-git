@@ -9,3 +9,7 @@
 - [X] Comprobar si está en un repositorio de Git
 - [] Crear binario
 - [] Crear el paquete
+
+
+https://github.com/natemoo-re/clack
+https://github.com/natemoo-re/clack/tree/main/packages/prompts#readme
