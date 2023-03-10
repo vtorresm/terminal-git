@@ -16,7 +16,7 @@ import { getChangedFiles, getStagedFiles, gitAdd, gitCommit, gitPush } from './g
 
 intro(
   colors.inverse(
-    `Asistente para la creación de commits creado por ${colors.yellow(
+    `Asistente para la creación de commits y push creado por ${colors.yellow(
       'Victor Torres'
     )}`
   )
