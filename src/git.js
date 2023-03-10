@@ -29,7 +29,7 @@ export async function gitAdd ({ files = [] } = {}) {
 }
 
 export async function gitPush () {
-  const BRANCH = 'git branch --show-current'
+  const BRANCH = ('git branch --show-current')
   console.log('BRANCH:', BRANCH)
   const { stdout } =
     await execAsync(`git push origin ${BRANCH}`)
