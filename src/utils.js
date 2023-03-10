@@ -1,5 +1,5 @@
-import { outro } from '@clack/prompts';
-import colors from 'picocolors';
+import { outro } from '@clack/prompts'
+import colors from 'picocolors'
 
 export function exitProgram ({
   code = 0,
