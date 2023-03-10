@@ -28,19 +28,16 @@ export async function gitAdd ({ files = [] } = {}) {
   return cleanStdout(stdout)
 }
 
-/* export async function gitBranches() {
-  // const BRANCH = ('git branch --show-current')
-  // console.log('BRANCH:', BRANCH)
-  const BRANCH =
-    await execAsync('git branch --show-current')
-  return cleanStdout(stdout)
-} */
-
 export async function gitPush () {
-  const BRANCH =
-    await execAsync('git branch --show-current')
-  console.log(BRANCH)
-  const { stdout } =
-    await execAsync(`git push origin ${BRANCH}`)
+  const { stdout } = await execAsync(
+    'git push origin main')
   return cleanStdout(stdout)
 }
+
+// export async function gitPush () {
+//   const { stdout } = await execAsync(`
+//     CURRENT_BRANCH=$(git branch --show-current)
+//     git push origin "$CURRENT_BRANCH"
+//   `)
+//   return cleanStdout(stdout)
+// }
