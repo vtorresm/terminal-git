@@ -12,11 +12,11 @@ import { trytm } from '@bdsqqq/try'
 
 import { exitProgram } from './utils.js'
 import { COMMIT_TYPES } from './commit-types.js'
-import { getChangedFiles, getStagedFiles, gitAdd, gitCommit } from './git.js'
+import { getChangedFiles, getStagedFiles, gitAdd, gitCommit, gitPush } from './git.js'
 
 intro(
   colors.inverse(
-    `Asistente para la creación de commits por ${colors.yellow(
+    `Asistente para la creación de commits creado por ${colors.yellow(
       'Victor Torres'
     )}`
   )
@@ -45,10 +45,10 @@ if (stagedFiles.length === 0 && changedFiles.length > 0) {
 }
 
 const commitType = await select({
-  message: colors.cyan('Selecciona el tipo de commit'),
+  message: colors.cyan('Selecciona el tipo de commit:'),
   options: Object.entries(COMMIT_TYPES).map(([key, value]) => ({
     value: key,
-    label: `${value.emoji} ${key.padEnd(10, ' ')} . ${value.description}`
+    label: `${value.emoji} ${key.padEnd(10, ' ')} · ${value.description}`
   }))
 })
 
@@ -105,6 +105,20 @@ if (!shouldContinue) {
 }
 
 await gitCommit({ commit })
+
+console.log(colors.green('✔️ Commit creado con éxito.'))
+
+const shouldPushCommit = await confirm({
+  initialValue: true,
+  message: `${colors.cyan('¿Quieres hacer push al commit?')}
+    ${colors.cyan('¿Confirmas?')}`
+})
+
+if (isCancel(shouldPushCommit)) exitProgram()
+
+if (shouldPushCommit) {
+  await gitPush()
+}
 
 outro(
   colors.green('✔ Commit creado con éxito. ¡Gracias por usar el asistente!')
