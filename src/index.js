@@ -106,7 +106,9 @@ if (!shouldContinue) {
 
 await gitCommit({ commit })
 
-console.log(colors.green('✔️ Commit creado con éxito.'))
+outro(
+  colors.green('✔ Commit creado con éxito.')
+)
 
 const shouldPushCommit = await confirm({
   initialValue: true,
@@ -121,5 +123,5 @@ if (shouldPushCommit) {
 }
 
 outro(
-  colors.green('✔ Commit creado con éxito. ¡Gracias por usar el asistente!')
+  colors.green('✔ Push realizado con éxito. ¡Gracias por usar el asistente!')
 )
