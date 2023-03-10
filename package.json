@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Victor Torres Mori",
   "license": "ISC",
   "devDependencies": {
     "standard": "^17.0.0"
