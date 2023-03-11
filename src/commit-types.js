@@ -1,16 +1,16 @@
 export const COMMIT_TYPES = {
   feat: {
-    emoji: '🆕 ',
+    emoji: '✴ ',
     description: 'Add new feature',
     release: true // que si haces un commit de este tipo, luego deberías hacer un release
   },
   fix: {
-    emoji: '🐛 ',
+    emoji: '❓',
     description: 'Submit a fix to a bug',
     release: true
   },
   perf: {
-    emoji: '⚡️ ',
+    emoji: '⚡️',
     description: 'Improve performance',
     release: true
   },
@@ -20,17 +20,17 @@ export const COMMIT_TYPES = {
     release: true
   },
   docs: {
-    emoji: '📚 ',
+    emoji: '🧩',
     description: 'Add or update documentation',
     release: false
   },
   test: {
-    emoji: '🧪 ',
+    emoji: '🧪',
     description: 'Add or update tests',
     release: false
   },
   build: {
-    emoji: '🏗️ ',
+    emoji: '✅',
     description: 'Add or update build scripts',
     release: false
   }
